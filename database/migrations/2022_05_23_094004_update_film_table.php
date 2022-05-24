@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        schema::table('film',function(Blueprint $table){
+        schema::table('films',function(Blueprint $table){
 
             $table->unsignedBigInteger('id_real');
  
-            $table->foreign('id_real')->references('id')->on('realisateur');
+            $table->foreign('id_real')->references('id')->on('realisateurs');
         });
     }
 

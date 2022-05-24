@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('test',[FilmController::class,'test'])->name('test');
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,3 +21,5 @@ Route::get('/', function () {
 
 });
 Route::get('films',[FilmController::class,'getAll'])->name('films');
+Route::get('film/{id}',[FilmController::class,'show'])->whereNumber('id');
+Route::post('ajouter',[FilmController::class,'addFilm'])->name('ajouter');

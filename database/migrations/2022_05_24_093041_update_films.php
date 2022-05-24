@@ -13,16 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('realisateurs', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom',150);
-            $table->string('prenom',150);
-            $table->string('photo',150);
-            
-            $table->timestamps();
-        });
+        Schema::table('films', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_salle',20)->nullable()->change();
+    });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('realisateur');
+        //
     }
 };

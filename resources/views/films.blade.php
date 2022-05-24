@@ -1,33 +1,34 @@
 @extends('layouts.app')
-
 @section('main')
-<table class="ml-auto mr-auto w-3/4 px-11">
-    {{-- @include('components.add') --}}
+
+<table class="w-3/4 ml-auto mr-auto px-11">
+    @include('components.add')
     <thead>
         <th class="bg-green-200">ID</th>
 
         <th class="bg-green-200">Titre</th>
-        <th class="bg-green-200">Auteur</th>
-        <th>Update</th>
-        <th>delete</th>
+        <th class="bg-green-200">Réalisateur</th>
+        <th class="bg-green-200">durée</th>
+        
+        <th class="bg-green-600">Show</th>
+        <th class="bg-green-600" >Update</th>
+        <th class="bg-green-600">delete</th>
 
     </thead>
     <tbody>
-        {{-- @foreach ($livres as $livre) --}}
-            <tr class="pl-4x text-center">
-                <td class="pl-4"></td>
-                <td class="pl-4">
-                    <a href=""></a>
-                </td>
-
-
-                <td class="pl-4"> <a href="/auteurs/"></a></td>
+        @foreach ($film as $film)
+            <tr class="text-center pl-4x">
+                <td class="pl-4">{{$film->id}}</td>
+                <td><a href="/film/{{ $film->id }}">{{$film->titre}}</a></td>
+                <td>{{$film->real->nom}} {{$film->real->prenom}}</td>
+                <td>{{$film->duree}}</td>
+                <td><a href="">Check it!</a></td>
                 <td><a href="">Update</a></td>
                 <td>
                     {{-- @include('components.delete') --}}
                      </td>
 
             </tr>
-     {{-- @endforeach --}}
+     @endforeach
     </tbody>
 @endsection

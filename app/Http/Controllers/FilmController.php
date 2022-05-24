@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Films;
+use App\Models\Realisateurs;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
 {
+
+    public function test(){
+        return view('test');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,13 @@ class FilmController extends Controller
     public function getAll()
     
     {
-       return view('films');
+        $films = Films::with('real')->get();
+        $realisateurs= Realisateurs::all();
+       return view('films',
+    [
+        'film' => $films,
+        'real'=>$realisateurs,
+    ]);
     }
 
     /**
@@ -22,9 +34,19 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addFilm(Request $request)
     {
-        //
+        if($request->hasfile('image')){
+        $path = $request->file('image')->store('image','public'); }
+    
+        $film = new Films();
+        $film ->titre=$request->titre;
+        $film->resume=$request->extrait;
+        $film->image=$path;
+        $film->duree=$request->duree;
+        $film->id_real=$request->realisateur;
+        $film->save();
+        return redirect()->Route('films');
     }
 
     /**
@@ -35,7 +57,7 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -46,7 +68,18 @@ class FilmController extends Controller
      */
     public function show($id)
     {
-        //
+        $films= Films::find($id);
+        if (isset($films)) {
+            return view(
+                'film',
+                [
+                    'film' => $films,
+
+                ]
+            );
+        } else {
+            return redirect()->route('livres');
+        }
     }
 
     /**
