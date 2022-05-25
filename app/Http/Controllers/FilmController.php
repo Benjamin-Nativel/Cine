@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Films;
 use App\Models\Realisateurs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FilmController extends Controller
 {
@@ -37,7 +38,7 @@ class FilmController extends Controller
     public function addFilm(Request $request)
     {
         if($request->hasfile('image')){
-        $path = $request->file('image')->store('image','public'); }
+        $path = Storage::disk('public')->put('images', $request->file('image')); }
     
         $film = new Films();
         $film ->titre=$request->titre;
@@ -88,9 +89,15 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        $edit = Films::find($id);
+        $edit->titre = $request->input('titre');
+        $edit->resume = $request->input('extrait');
+        $edit->id_real = $request->input('auteurs');
+
+        $edit->update() ;
+        return redirect()->route('livres')->with('status','update effectué avec succés');
     }
 
     /**

@@ -23,3 +23,6 @@ Route::get('/', function () {
 Route::get('films',[FilmController::class,'getAll'])->name('films');
 Route::get('film/{id}',[FilmController::class,'show'])->whereNumber('id');
 Route::post('ajouter',[FilmController::class,'addFilm'])->name('ajouter');
+
+
+Route::post('edition/{id}',[LivresController::class,'editLivres'])->whereNumber('id')->name('edition');

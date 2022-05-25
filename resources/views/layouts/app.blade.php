@@ -15,12 +15,12 @@
         @include('layouts.header')
     
 
-   <main class="h-screen">
+   <main class="">
        @yield('main')
 </main> 
 
 
-    {{-- @include('layouts.footer') --}}
+    @include('layouts.footer')
 
 </body>
 </html>

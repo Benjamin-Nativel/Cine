@@ -5,5 +5,5 @@
     {{$film['resume']}}
 </h3>
 
-<img src="asset('storage/$film->image')" alt="">
+<img src="{{ Storage::url($film->image)}}" alt="testt">
 @endsection

@@ -13,10 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('films', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_salle',20)->nullable()->change();
-    });
+        schema::table('film_categ',function(Blueprint $table){
+
+            $table->unsignedBigInteger('id_film');
+ 
+            $table->foreign('id_film')->references('id')->on('films');
+
+            $table->unsignedBigInteger('id_categ')->references('id')->on('categories');
+        });
     }
+
     /**
      * Reverse the migrations.
      *
