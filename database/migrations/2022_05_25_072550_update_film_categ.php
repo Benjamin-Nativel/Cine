@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('film_categ', function (Blueprint $table) {
-            $table->integer('id_film');
-            $table->integer('id_categ');
-            $table->timestamps();
+        Schema::table('film_categ',function(Blueprint $table){
+
+            $table->unsignedBigInteger('id_film');
+            $table->foreign('id_film')->references('id')->on('films');
+            $table->unsignedBigInteger('id_categ');
+            $table->foreign('id_categ')->references('id')->on('categories');
+            
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('film_categ');
+        //
     }
 };

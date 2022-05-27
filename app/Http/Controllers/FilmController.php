@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\Films;
 use App\Models\Realisateurs;
+use App\Models\Salles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class FilmController extends Controller
 {
 
-    public function test(){
+    public function test()
+    {
         return view('test');
     }
     /**
@@ -19,15 +22,23 @@ class FilmController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getAll()
-    
+
     {
-        $films = Films::with('real')->get();
-        $realisateurs= Realisateurs::all();
-       return view('films',
-    [
-        'film' => $films,
-        'real'=>$realisateurs,
-    ]);
+
+        $films = Films::with('categ')->with('real')->get();
+        $realisateurs = Realisateurs::all();
+        $categs = Categories::all();
+        $salles = Salles::all();
+        return view(
+            'films',
+            [
+                'film' => $films,
+                'real' => $realisateurs,
+                'categ' => $categs,
+                'salle' => $salles
+
+            ]
+        );
     }
 
     /**
@@ -37,15 +48,32 @@ class FilmController extends Controller
      */
     public function addFilm(Request $request)
     {
-        if($request->hasfile('image')){
-        $path = Storage::disk('public')->put('images', $request->file('image')); }
-    
-        $film = new Films();
-        $film ->titre=$request->titre;
-        $film->resume=$request->extrait;
-        $film->image=$path;
-        $film->duree=$request->duree;
-        $film->id_real=$request->realisateur;
+        $validate = $request->validate([
+            'titre' => 'required|max:150',
+            'resume' => 'required',
+            'realisateurs' => 'required',
+            'tps' => 'required|max:100',
+            'categories' => 'required',
+            'image' => 'required',
+            'id' => 'required'
+
+            // 'salle' => 'required|exists:salles,id',
+        ]);
+
+        if ($request->hasfile('image')) {
+            $path = Storage::disk('public')->put('images', $request->file('image'));
+        }
+
+        $film = Films::find('id');
+        $film = Films::with(['realisateur', 'categories'])->find($request->input('id'));
+        $film->id = $validate['id'];
+        $film->titre = $validate['titre'];
+        $film->resume = $validate['resume'];
+        $film->image = $path;
+        $film->duree = $validate['tps'];
+        $film->id_real = $validate['realisateurs'];
+        // $film->id_salle = $validate['salle'];
+        $film->categ()->attach($validate['categories']);
         $film->save();
         return redirect()->Route('films');
     }
@@ -58,7 +86,6 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        
     }
 
     /**
@@ -69,7 +96,7 @@ class FilmController extends Controller
      */
     public function show($id)
     {
-        $films= Films::find($id);
+        $films = Films::find($id);
         if (isset($films)) {
             return view(
                 'film',
@@ -89,15 +116,15 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
         $edit = Films::find($id);
         $edit->titre = $request->input('titre');
         $edit->resume = $request->input('extrait');
         $edit->id_real = $request->input('auteurs');
 
-        $edit->update() ;
-        return redirect()->route('livres')->with('status','update effectué avec succés');
+        $edit->update();
+        return redirect()->route('livres')->with('status', 'update effectué avec succés');
     }
 
     /**

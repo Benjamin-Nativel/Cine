@@ -58,22 +58,39 @@
     @csrf
 
     <div class="flex flex-col w-10/12 max-w-2xl mx-auto text-gray-800 editor -lg">
-        <select name="realisateur" class="p-2 mb-4 bg-gray-100 border border-gray-300 outline-none"
-            class="block w-full px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
-            @foreach ($real as $real)
-                <option value="{{ $real->id }}">
-                    {{ $real['nom'] }} &zwnj;{{ $real['prenom'] }}
-                </option>
-            @endforeach
-        </select>
+        <select name="realisateurs" class="p-2 mb-4 bg-gray-100 border border-gray-300 outline-none"
+        class="block w-full px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
+        @foreach ($real as $real)
+        <option value="{{ $real->id }}">
+            {{ $real['nom'] }} &zwnj;{{ $real['prenom'] }}
+        </option>
+        @endforeach
+    </select>
+    <input type="text" name="id" value="{{ $film['id']}}" style="visibility:hidden">
+        <select multiple name="categories[]" class="p-2 mb-4 bg-gray-100 border border-gray-300 outline-none"
+        class="block w-full px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
+        @foreach ($categ as $cats)
+            <option value="{{ $cats->id }}">
+                {{ $cats->label }} 
+            </option>
+        @endforeach
+    </select>
+    {{-- <select name="salle" class="p-2 mb-4 bg-gray-100 border border-gray-300 outline-none"
+        class="block w-full px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline">
+        @foreach ($salle as $salle)
+            <option value="{{ $salle->id }}">
+                {{ $salle->num_salle }} 
+            </option>
+        @endforeach
+    </select> --}}
         <input class="p-2 mb-4 bg-gray-100 border border-gray-300 outline-none title" spellcheck="false"
-            placeholder="Title" type="text" name="titre"  required>
+            placeholder="Title" type="text" name="titre"  >
             <input class="p-2 mb-4 bg-gray-100 border border-gray-300 outline-none title" spellcheck="false"
             placeholder="Title" type="file" name="image">
             <input class="p-2 mb-4 bg-gray-100 border border-gray-300 outline-none title" spellcheck="false"
-            placeholder="Durée" type="text" name="tps"  required>
+            placeholder="Durée" type="text" name="tps"  >
         <textarea class="p-3 bg-gray-100 border border-gray-300 outline-none description sec h-60" spellcheck="false"
-            placeholder="Ecriver votre extrait ici" name="extrait" value="old{{}}" required></textarea>
+            placeholder="Ecriver votre extrait ici" name="resume" value="old{{}}" ></textarea>
 
         <!-- icons -->
         <div class="flex m-2 text-gray-500 icons">

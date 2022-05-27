@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('titre',150);
             $table->text('resume');
-            $table->string('duree',100);
-            $table->text('image',1024);
+            $table->string('duree',100)->nullable();
+            $table->text('image',1024)->nullable();
+           
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('film');
+        Schema::dropIfExists('films');
     }
 };

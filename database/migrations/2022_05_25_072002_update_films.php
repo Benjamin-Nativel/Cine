@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('films', function (Blueprint $table) {
-            $table->string('duree',100)->nullable()->change();
-            $table->text('image',1024)->nullable()->change();
+        Schema::table('films',function(Blueprint $table){
+
+                $table->unsignedBigInteger('id_salle');
+                     $table->foreign('id_salle')->references('id')->on('salles');
+    
+               
+            
+
+           
         });
     }
 

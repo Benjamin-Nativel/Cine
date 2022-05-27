@@ -15,6 +15,6 @@ class Films extends Model
 }
 public function categ()
 {
-    return $this->belongsToMany(Categories::class, 'id_categ');
+    return $this->belongsToMany(Categories::class,'film_categ', 'id_film', 'id_categ');
 }
 }

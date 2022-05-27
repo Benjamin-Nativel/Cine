@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        schema::table('film_categ',function(Blueprint $table){
-
-            $table->unsignedBigInteger('id_film');
- 
-            $table->foreign('id_film')->references('id')->on('films');
-
-            $table->unsignedBigInteger('id_categ')->references('id')->on('categories');
+        Schema::create('film_categ', function (Blueprint $table) {
+           
+            $table->timestamps();
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('film_categ');
     }
 };

@@ -16,8 +16,8 @@ return new class extends Migration
         schema::table('films',function(Blueprint $table){
 
             $table->unsignedBigInteger('id_real');
- 
-            $table->foreign('id_real')->references('id')->on('realisateurs');
+             $table->foreign('id_real')->references('id')->on('realisateurs');
+            
         });
     }
 

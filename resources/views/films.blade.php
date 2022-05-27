@@ -12,6 +12,7 @@
         <th class="bg-gray-500">Réalisateur</th>
         <th class="bg-gray-500">durée</th>
         <th class="bg-gray-500">Affiche</th>
+        <th class="bg-gray-500">Categories</th>
         <th class="bg-gray-500">Show</th>
         <th class="bg-gray-500" >Update</th>
         <th class="bg-gray-500">delete</th>
@@ -25,6 +26,11 @@
                 <td class="px-5 py-3 border-2 pl-4">{{$film->real->nom}} {{$film->real->prenom}}</td>
                 <td class="px-5 py-3 border-2 pl-4">{{$film->duree}}</td>
                 <td class="px-5 py-3 border-2 pl-4"> <img class="w-28" src="{{ Storage::url($film->image)}}" alt=""> </td>
+                <td class="px-5 py-3 border-2 pl-4">
+                    @foreach ($film->categ as $categorie )
+                    {{$categorie->label}}
+                    @endforeach
+                </td>
                 <td class="px-5 py-3 border-2 pl-4"><a href="">Check it!</a></td>
                 <td class="px-5 py-3 border-2 pl-4"></td>
                 {{-- @include('components.edit') --}}
