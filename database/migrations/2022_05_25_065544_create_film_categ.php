@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('realisateurs', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom',150);
-            $table->string('prenom',150);
-            $table->string('photo',150);
-            
+        Schema::create('film_categ', function (Blueprint $table) {
+           
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('realisateur');
+        Schema::dropIfExists('film_categ');
     }
 };

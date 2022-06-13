@@ -15,7 +15,7 @@
         @include('layouts.header')
     
 
-   <main class="h-screen">
+   <main class="">
        @yield('main')
 </main> 
 

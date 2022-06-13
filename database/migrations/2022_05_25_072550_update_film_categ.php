@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('realisateurs', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom',150);
-            $table->string('prenom',150);
-            $table->string('photo',150);
+        Schema::table('film_categ',function(Blueprint $table){
+
+            $table->unsignedBigInteger('id_film');
+            $table->foreign('id_film')->references('id')->on('films');
+            $table->unsignedBigInteger('id_categ');
+            $table->foreign('id_categ')->references('id')->on('categories');
             
-            $table->timestamps();
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('realisateur');
+        //
     }
 };
